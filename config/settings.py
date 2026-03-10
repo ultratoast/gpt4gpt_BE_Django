@@ -10,29 +10,20 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
 ALLOWED_HOSTS = [h.strip() for h in os.environ.get("ALLOWED_HOSTS", "localhost").split(",") if h.strip()]
 
 INSTALLED_APPS = [
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
     "corsheaders",
     "api",
-    "config"
 ]
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "api.middleware.BearerTokenAuthMiddleware"
+    "api.middleware.BearerTokenAuthMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
 WSGI_APPLICATION = "config.wsgi.application"
 
-# No database needed
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",

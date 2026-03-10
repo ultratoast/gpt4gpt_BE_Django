@@ -1,6 +1,6 @@
 import json, os, re
 from django.http import JsonResponse
-from django.views.decorators.http import require_POST, require_GET
+from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 
 from api.helpers.openai import createResponse
@@ -65,11 +65,9 @@ def start(request):
         ]
     })
 
-    try:
-        responseId = openaiResp['id']
-    except Exception:
-        return JsonResponse({'detail': 'Openai Error'}, status=500)
-    
+    if 'id' not in openaiResp:
+        return JsonResponse({'detail': 'OpenAI Error'}, status=500)
+
     agents = transformResponse(openaiResp)
 
     return JsonResponse(agents)
@@ -92,11 +90,9 @@ def message(request):
         ]
     })
 
-    try:
-        responseId = openaiResp['id']
-    except Exception:
-        return JsonResponse({'detail': 'Openai Error'}, status=500)
-    
+    if 'id' not in openaiResp:
+        return JsonResponse({'detail': 'OpenAI Error'}, status=500)
+
     agents = transformResponse(openaiResp)
 
     return JsonResponse(agents)

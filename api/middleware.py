@@ -1,9 +1,5 @@
-import hashlib
 from django.http import JsonResponse
 import os
-
-def _hash_token(raw: str) -> str:
-    return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 class BearerTokenAuthMiddleware:
     """
